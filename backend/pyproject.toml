@@ -1,0 +1,25 @@
+[project]
+name = "chirashi-backend"
+version = "0.1.0"
+description = "backend"
+# package-mode = false
+authors = [
+    {name = "Your Name",email = "you@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "flask (>=3.1.1,<4.0.0)",
+    "peewee (>=3.18.1,<4.0.0)",
+    "pymysql (>=1.1.1,<2.0.0)",
+    "cryptography (>=45.0.2,<46.0.0)"
+]
+
+[tool.poetry]
+
+[tool.poetry.group.dev.dependencies]
+flask = "^3.1.1"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

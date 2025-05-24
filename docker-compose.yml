@@ -13,7 +13,9 @@ services:
       FLASK_ENV: development
 
     working_dir: /backend
-    command: bash -c "pip3 install -r requirements.txt && flask --app main run  --host=0.0.0.0  --debug --port 8000"
+    command: bash -c "poetry install --no-root && poetry run flask --app main run  --host=0.0.0.0  --debug --port 8000"
+    depends_on: 
+      - mysql
 
   svelte-app:
     build:
@@ -31,3 +33,20 @@ services:
       - PORT=5050
       - HOST=0.0.0.0
 
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: chirashi_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  mysql_data:
