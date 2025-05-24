@@ -1,0 +1,33 @@
+
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/backend
+    environment:
+      FLASK_ENV: development
+
+    working_dir: /backend
+    command: bash -c "pip3 install -r requirements.txt && flask --app main run  --host=0.0.0.0  --debug --port 8000"
+
+  svelte-app:
+    build:
+      context: ./frontend/
+      dockerfile: dev.Dockerfile
+    ports:
+      - 5050:5050
+    volumes:
+      - ./frontend/:/frontend/
+    
+    working_dir: /frontend
+    command: bash -c "yarn install && yarn run dev --host"
+    environment:
+      - NODE_ENV=development
+      - PORT=5050
+      - HOST=0.0.0.0
+
