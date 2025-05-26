@@ -12,7 +12,8 @@ dependencies = [
     "flask (>=3.1.1,<4.0.0)",
     "peewee (>=3.18.1,<4.0.0)",
     "pymysql (>=1.1.1,<2.0.0)",
-    "cryptography (>=45.0.2,<46.0.0)"
+    "cryptography (>=45.0.2,<46.0.0)",
+    "flask-cors (==5.0.0)"
 ]
 
 [tool.poetry]
