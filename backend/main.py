@@ -1,17 +1,7 @@
-from flask import Flask
 
-from flask import jsonify
-from db.database import *
-# print("db",db)
+from flask import Flask, request, jsonify
+from routes import routes
 
 app = Flask(__name__)
+app.register_blueprint(routes)
 
-
-if __name__ == '__main__':
-      app.run(host="0.0.0.0",port=8000,debug=True)
-
-@app.route("/")
-def hello_world():
-    all=list(Flier.select().dicts())
-    print(all)
-    return jsonify(all)
