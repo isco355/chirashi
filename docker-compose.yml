@@ -1,50 +1,55 @@
+
+
 services:
   backend:
     build:
       context: ./backend
-      dockerfile: prod.Dockerfile
+      dockerfile: dev.Dockerfile
 
     restart: always
     ports:
       - "8000:8000"
+    volumes:
+      - ./backend:/backend
     environment:
       FLASK_ENV: development
+      DATABASE_NAME: chirashi_dev_db
 
-      DATABASE_NAME: chirashi_prod_db
     working_dir: /backend
-    command: bash -c "poetry run waitress-serve --host 0.0.0.0 --port 8000 main:app"
+    command: bash -c "poetry install --no-root && poetry run flask --app main run  --host=0.0.0.0  --debug --port 8000"
     depends_on: 
       - mysql
 
   svelte-app:
     build:
       context: ./frontend/
-      dockerfile: prod.Dockerfile
+      dockerfile: dev.Dockerfile
     ports:
       - 5050:5050
     volumes:
       - ./frontend/:/frontend/
     
     working_dir: /frontend
-    command: bash -c " yarn run build && yarn run preview"
+    command: bash -c "yarn install && yarn run dev --host"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - PORT=5050
       - HOST=0.0.0.0
+
 
   mysql:
     image: mysql:latest
     container_name: mysql_container
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: chirashi_prod_db
+      MYSQL_DATABASE: chirashi_dev_db
       MYSQL_USER: user
       MYSQL_PASSWORD: 1234
     ports:
       - "3306:3306"
     volumes:
-      - mysql_prod_data:/var/lib/mysql
+      - mysql_dev_data:/var/lib/mysql
     restart: always
 
 volumes:
-  mysql_prod_data:
+  mysql_dev_data:
