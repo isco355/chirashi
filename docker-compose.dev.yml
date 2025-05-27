@@ -13,6 +13,7 @@ services:
       - ./backend:/backend
     environment:
       FLASK_ENV: development
+      DATABASE_NAME: chirashi_dev_db
 
     working_dir: /backend
     command: bash -c "poetry install --no-root && poetry run flask --app main run  --host=0.0.0.0  --debug --port 8000"
@@ -41,14 +42,14 @@ services:
     container_name: mysql_container
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: chirashi_db
+      MYSQL_DATABASE: chirashi_dev_db
       MYSQL_USER: user
       MYSQL_PASSWORD: 1234
     ports:
       - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql_dev_data:/var/lib/mysql
     restart: always
 
 volumes:
-  mysql_data:
+  mysql_dev_data:
