@@ -1,10 +1,9 @@
 
 <script lang="ts">
 	import '../app.css';
-	import {auth} from '../lib/firebase_auth.ts'
 	import { FirebaseApp } from 'sveltefire';
   import { SignedIn,SignedOut } from 'sveltefire';
-  import {signInWithGoogle,handleSignOut} from '../lib/firebase_auth.ts'
+  import {signInWithGoogle,handleSignOut,auth} from '$lib/firebase_auth.ts'
   import { onMount } from "svelte";
 
   import { page } from '$app/stores';

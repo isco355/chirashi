@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  const localhost= "http://localhost:8000/"
+  const localhost= import.meta.env.VITE_LOCALHOST
   const request_path =localhost+"/fliers"
 
   

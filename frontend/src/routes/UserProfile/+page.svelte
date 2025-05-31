@@ -1,7 +1,7 @@
 <script>
     import { SignedIn,SignedOut } from 'sveltefire';
 
-    import {signInWithGoogle} from '../../lib/firebase_auth.ts'
+    import {signInWithGoogle} from '$lib/firebase_auth.ts'
 </script>
 
 <SignedIn let:user>
