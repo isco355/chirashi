@@ -1,18 +1,27 @@
 
 <script lang="ts">
 	import '../app.css';
-	
+	import {auth} from '../lib/firebase_auth.ts'
+	import { FirebaseApp } from 'sveltefire';
+  import { SignedIn,SignedOut } from 'sveltefire';
+  import {signInWithGoogle,handleSignOut} from '../lib/firebase_auth.ts'
+  import { onMount } from "svelte";
+
+  import { page } from '$app/stores';
 	let { children } = $props();
+	
+
+	console.log(auth)
 </script>
 
-
+<FirebaseApp {auth}>
 
 <nav>
-	<h1> OpenShelf </h1>
 	
+	<a href="/" > OpenShelf</a>
 	<ul>
+<SignedIn let:user  let:signOut>
 		<li>
-			<a href="/Home" > Home</a>
 		</li>
 		<li>
 			<a href="/Explore" > Explore</a>
@@ -21,15 +30,34 @@
 			<a href="/UploadScan" > Upload Scan</a>
 		</li>
 		<li>
-			<a href="/UserProfile" > Profile</a>
+					<div class="
+ flex flex-row gap-2
+">
+			<a href="/UserProfile" > {user.displayName}</a>
+		<img class="h-10 w-10 rounded-full" src={user.photoURL}/>	
+</div>
 		</li>
+
+    <button on:click={()=>handleSignOut(signOut)}>Sign Out</button>
+</SignedIn>
+<SignedOut let:auth>
+    <button  on:click={() => signInWithGoogle(auth)}>Sign In</button>
+</SignedOut>
+
+
 	</ul>
   
 </nav>	
 
+{#if $page.url.pathname === '/'}
 {@render children()}
+{:else}
+<SignedIn >
+{@render children()}
+</SignedIn>
+{/if}
 
-
+</FirebaseApp>
   
 <style>
   nav

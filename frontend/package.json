@@ -22,6 +22,8 @@
 	},
 	"dependencies": {
 		"@tailwindcss/vite": "^4.1.7",
+		"firebase": "^11.8.1",
+		"sveltefire": "^0.4.5",
 		"tailwindcss": "^4.1.7"
 	}
 }

@@ -1,20 +1,15 @@
 <script>
-  
   import { onMount } from "svelte";
-
-
   const localhost= "http://localhost:8000/"
   const request_path =localhost+"/fliers"
 
   
-  let count = $state(0);
-
-  function increment() {
-    count += 1;
-  }
   
   let fliers = $state([]);
   onMount(async function () {
+    console.log(
+'fetching flyers'
+    )
   let rquestFlier= await fetch(request_path).then(data=> data.json())
     .then(data=>{
       fliers=data
@@ -28,16 +23,11 @@
 
 
 
-<!--
-  <div class="h-screen w-full  flex flex-col  items-center justify-around gap-30">
-  <h1 class="font-bold text-5xl "> OpenShelf</h1>
-!-->
 
 
-
-  <main> <!--Button-HTML --> 
-    <h1>Filter Demo {count} </h1>
-    <button on:click={increment}>Filter </button>
+  <main>
+    <h1>Filter </h1>
+    <button >Filter </button>
   </main>
   
 
